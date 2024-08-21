@@ -26,7 +26,7 @@ Implement a backend solution where a user, an employee, has their paychecks calc
     - Architecturally split into areas Database, Calculations and Endpoints which contain the corresponding functionality
     - Focuses on execution performance and a small memory footprint
     - Uses source generation to create JSON response serializers in order to boost performance even further
-    - With some additional work, may be turned into a trimmable or AOT-compiled application (not fully implemented in scope of this task)
+    - With small additional effort, may be turned into a trimmable or AOT-compiled application (not fully implemented in scope of this task)
 2. Endpoints return standardized responses with correct status codes and, if problems occur, return industry-accepted problem details
     - Performant forward-only paging for Employees and Dependents that prioritizes response time over the ability to go to a previous page
     - Basic filtering for Employees and Dependents in the paged endpoints
@@ -41,7 +41,7 @@ Implement a backend solution where a user, an employee, has their paychecks calc
     - The values which these classes operate upon (e.g. age of a dependent that incurs additional deductions) are stored in the DB
     - New policies can be easily added to the application by adding a new class for the policy that implements ICalculationPolicy and then adding applicability and operation values for it to the DB
     - The result of applying policies to an employee's salary is a set of objects, each of which represents a paycheck information with the details for each deduction
-5. The provided unit test project is used to test the functionality of the application
+5. The original unit test project is used to test the functionality of the application
     - Minor modifications are made to the expected values for employees and dependents
     - Additional test class was added to cover the paychecks endpoint
     - Per-service tests can be quickly added (not implemented in scope of this challenge)
@@ -51,6 +51,7 @@ Implement a backend solution where a user, an employee, has their paychecks calc
 Open in Visual Studio, F5 and run all tests
 
 ### Potential areas for the future development
+- Caching
 - Logging
 - Better error handling
 - Request validation (e.g. using Mini Validator)
