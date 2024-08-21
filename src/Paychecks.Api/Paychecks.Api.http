@@ -1,0 +1,43 @@
+@Paychecks.Api_HostAddress = http://localhost:5086
+
+# Get a page of employees
+GET {{Paychecks.Api_HostAddress}}/api/v1/employees/
+Accept: application/json
+
+###
+
+# Get a page of employees whose last name starts with J and whose salary is greater than 80000
+GET {{Paychecks.Api_HostAddress}}/api/v1/employees/?lastNameStartsWith=J&salaryMin=80000
+Accept: application/json
+
+###
+
+# Find an employee by ID
+GET {{Paychecks.Api_HostAddress}}/api/v1/employees/1
+Accept: application/json
+
+###
+
+# Get a page of employee dependents
+GET {{Paychecks.Api_HostAddress}}/api/v1/dependents/
+Accept: application/json
+
+###
+
+# Get a page of employee dependents whose relationship to our employee is Child
+GET {{Paychecks.Api_HostAddress}}/api/v1/dependents/?relationship=Child
+Accept: application/json
+
+###
+
+# Find a dependent person by ID
+GET {{Paychecks.Api_HostAddress}}/api/v1/dependents/1
+Accept: application/json
+
+###
+
+# Get paychecks for an employee by their ID
+GET {{Paychecks.Api_HostAddress}}/api/v1/paychecks/1
+Accept: application/json
+
+###
