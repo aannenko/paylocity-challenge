@@ -41,7 +41,7 @@ Implement a backend solution where a user, an employee, has their paychecks calc
     - The values which these classes operate upon (e.g. age of a dependent that incurs additional deductions) are stored in the DB
     - New policies can be easily added to the application by adding a new class for the policy that implements ICalculationPolicy and then adding applicability and operation values for it to the DB
     - The result of applying policies to an employee's salary is a set of objects, each of which represents a paycheck information with the details for each deduction
-5. The provided unit test project is used to test the functionality of the application
+5. The original unit test project is used to test the functionality of the application
     - Minor modifications are made to the expected values for employees and dependents
     - Additional test class was added to cover the paychecks endpoint
     - Per-service tests can be quickly added (not implemented in scope of this challenge)
