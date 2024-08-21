@@ -2,15 +2,15 @@
 
 This is a solution to the take-home challenge by Paylocity.
 
-**Problem:**
+### Problem
 
 Implement a backend solution where a user, an employee, has their paychecks calculated for a year based on the following requirements.
 
-**Conditions:**
+### Conditions
 - An employee may only have 1 spouse or domestic partner (not both)
 - An employee may have an unlimited number of children
 
-**Requirements:**
+### Requirements
 - The app should allow to view employees and their dependents
 - The app should be able to calculate paychecks for each employee given these rules:
     - 26 paychecks per year with deductions spread as evenly as possible on each paycheck
@@ -19,7 +19,7 @@ Implement a backend solution where a user, an employee, has their paychecks calc
     - employees that make more than $80,000 per year incur deduction of additional 2% of their yearly salary as benefits costs
     - dependents that are over 50 years old will incur an additional $200 per month
 
-**Solution details:**
+### Solution details
 1. The solution is a .NET Web API with the following technical characteristics
     - A minimal API template is used in order to simplify API routing and passing parameters
     - Can be easily containerized (not ready in scope of this task but can be achieved by spending additional hour or two)
@@ -46,7 +46,11 @@ Implement a backend solution where a user, an employee, has their paychecks calc
     - Additional test class was added to cover the paychecks endpoint
     - Per-service tests can be quickly added (not implemented in scope of this challenge)
 
-**Potential areas for the future development**
+### How to run and test
+
+Open in Visual Studio, F5 and run all tests
+
+### Potential areas for the future development
 - Logging
 - Better error handling
 - Request validation (e.g. using Mini Validator)
