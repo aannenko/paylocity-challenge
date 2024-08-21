@@ -22,11 +22,6 @@ public static class EmployeeEndpoints
             .WithDescription("Find one employee by ID.")
             .WithOpenApi();
 
-        //group.MapPost("/", AddOrUpdateOneAsync);
-        //group.MapPost("/{id}", RefreshOneByIdAsync);
-        //group.MapPatch("/{id}", UpdateOneById);
-        //group.MapDelete("/{id}", RemoveOneById);
-
         return builder;
     }
 
