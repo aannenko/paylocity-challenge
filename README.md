@@ -26,7 +26,7 @@ Implement a backend solution where a user, an employee, has their paychecks calc
     - Architecturally split into areas Database, Calculations and Endpoints which contain the corresponding functionality
     - Focuses on execution performance and a small memory footprint
     - Uses source generation to create JSON response serializers in order to boost performance even further
-    - With some additional work, may be turned into a trimmable or AOT-compiled application (not fully implemented in scope of this task)
+    - With small additional effort, may be turned into a trimmable or AOT-compiled application (not fully implemented in scope of this task)
 2. Endpoints return standardized responses with correct status codes and, if problems occur, return industry-accepted problem details
     - Performant forward-only paging for Employees and Dependents that prioritizes response time over the ability to go to a previous page
     - Basic filtering for Employees and Dependents in the paged endpoints
