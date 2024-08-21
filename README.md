@@ -51,6 +51,7 @@ Implement a backend solution where a user, an employee, has their paychecks calc
 Open in Visual Studio, F5 and run all tests
 
 ### Potential areas for the future development
+- Caching
 - Logging
 - Better error handling
 - Request validation (e.g. using Mini Validator)
