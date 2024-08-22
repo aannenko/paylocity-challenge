@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Paychecks.Api.Database.Services;
+using Paychecks.Api.Endpoints.Constants;
 using Paychecks.Api.Endpoints.Dto;
 using Paychecks.Api.Endpoints.Extensions;
 
@@ -8,11 +9,9 @@ namespace Paychecks.Api.Endpoints;
 
 public static class EmployeeEndpoints
 {
-    private const string _employeesApiAddress = "/api/v1/employees";
-
     public static IEndpointRouteBuilder MapEmployeeEndpoints(this IEndpointRouteBuilder builder)
     {
-        var group = builder.MapGroup(_employeesApiAddress);
+        var group = builder.MapGroup(EndpointConstants.EmployeesApiAddress);
 
         group.MapGet("/", GetPageAsync)
             .WithDescription("Get a page of employees, optionally filtered.")
@@ -40,7 +39,10 @@ public static class EmployeeEndpoints
             ? TypedResults.Ok(new PagedApiResponse<GetEmployeeDto[]>
             {
                 Data = result.Select(EmployeeExtensions.ToGetEmployeeDto).ToArray(),
-                NextPage = pageDescriptor.GetNextPageAddress(_employeesApiAddress, result.Last().Id, filter)
+                NextPage = pageDescriptor.GetNextPageAddress(
+                    EndpointConstants.EmployeesApiAddress,
+                    result.Last().Id,
+                    filter)
             })
             : TypedResults.NotFound(new PagedApiResponse<GetEmployeeDto[]>
             {

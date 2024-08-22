@@ -12,6 +12,9 @@ public sealed class DependentService(AppDbContext dbContext)
 
         if (filter is not null)
         {
+            if (filter.EmployeeId is not null)
+                query = query.Where(dependent => dependent.EmployeeId == filter.EmployeeId);
+
             if (!string.IsNullOrEmpty(filter.FirstNameStartsWith))
                 query = query.Where(dependent => dependent.FirstName.StartsWith(filter.FirstNameStartsWith));
 
@@ -28,7 +31,7 @@ public sealed class DependentService(AppDbContext dbContext)
                 query = query.Where(dependent => dependent.Relationship == filter.Relationship);
         }
 
-        return query.OrderBy(static employee => employee.Id)
+        return query.OrderBy(static dependent => dependent.Id)
             .Where(dependent => dependent.Id > pageDescriptor.AfterId)
             .Take(pageDescriptor.Take)
             .ToArrayAsync();
@@ -36,6 +39,6 @@ public sealed class DependentService(AppDbContext dbContext)
 
     public Task<Dependent?> FindOneByIdAsync(int id)
     {
-        return dbContext.Dependents.FirstOrDefaultAsync(employee => employee.Id == id);
+        return dbContext.Dependents.FirstOrDefaultAsync(dependent => dependent.Id == id);
     }
 }

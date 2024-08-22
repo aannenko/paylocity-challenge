@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Paychecks.Api.Database.Services;
+using Paychecks.Api.Endpoints.Constants;
 using Paychecks.Api.Endpoints.Dto;
 using Paychecks.Api.Endpoints.Extensions;
 
@@ -8,19 +9,18 @@ namespace Paychecks.Api.Endpoints;
 
 public static class DependentEndpoints
 {
-    private const string _dependentApiAddress = "/api/v1/dependents";
-
     public static IEndpointRouteBuilder MapDependentEndpoints(this IEndpointRouteBuilder builder)
     {
-        var group = builder.MapGroup(_dependentApiAddress);
+        var group = builder.MapGroup(EndpointConstants.DependentsApiAddress).WithOpenApi();
 
         group.MapGet("/", GetPageAsync)
-            .WithDescription("Get a page of employees' dependents, optionally filtered.")
-            .WithOpenApi();
+            .WithDescription("Get a page of employees' dependents, optionally filtered.");
 
         group.MapGet("/{id}", FindOneByIdAsync)
-            .WithDescription("Find one dependent person by ID.")
-            .WithOpenApi();
+            .WithDescription("Find one dependent person by ID.");
+
+        builder.MapGet($"{EndpointConstants.EmployeesApiAddress}/{{employeeId}}/dependents", GetPageAsync)
+            .WithDescription("Get a page of dependents of the employee with a specific ID.");
 
         return builder;
     }
@@ -31,16 +31,22 @@ public static class DependentEndpoints
         GetPageAsync(
             [FromServices] DependentService service,
             [AsParameters] GetDependentsPageRequest request,
+            int? employeeId = null,
             CancellationToken cancellationToken = default)
     {
         var pageDescriptor = request.ToPageDescriptor();
-        var filter = request.ToDependentFilter();
+        var filter = request.ToDependentFilter(employeeId);
         var result = await service.GetPageAsync(pageDescriptor, filter);
         return result.Length > 0
             ? TypedResults.Ok(new PagedApiResponse<GetDependentDto[]>
             {
                 Data = result.Select(DependentExtensions.ToGetDependentDto).ToArray(),
-                NextPage = pageDescriptor.GetNextPageAddress(_dependentApiAddress, result.Last().Id, filter)
+                NextPage = pageDescriptor.GetNextPageAddress(
+                    employeeId is null
+                        ? EndpointConstants.DependentsApiAddress
+                        : $"{EndpointConstants.EmployeesApiAddress}/{employeeId}/dependents",
+                    result.Last().Id,
+                    filter)
             })
             : TypedResults.NotFound(new PagedApiResponse<GetDependentDto[]>
             {

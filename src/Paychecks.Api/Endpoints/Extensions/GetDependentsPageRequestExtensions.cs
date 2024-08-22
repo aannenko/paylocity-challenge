@@ -5,16 +5,18 @@ namespace Paychecks.Api.Endpoints.Extensions;
 
 public static class GetDependentsPageRequestExtensions
 {
-    public static DependentFilter? ToDependentFilter(this GetDependentsPageRequest request)
+    public static DependentFilter? ToDependentFilter(this GetDependentsPageRequest request, int? employeeId)
     {
         DependentFilter? filter = null;
-        if (request.FirstNameStartsWith is not null ||
+        if (employeeId is not null ||
+            request.FirstNameStartsWith is not null ||
             request.LastNameStartsWith is not null ||
             request.DateOfBirthMin is not null ||
             request.DateOfBirthMax is not null ||
             request.Relationship is not null)
         {
             filter = new(
+                employeeId,
                 request.FirstNameStartsWith,
                 request.LastNameStartsWith,
                 request.DateOfBirthMin,
